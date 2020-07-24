@@ -753,9 +753,9 @@ int main(int argc, char **argv)
     }
 
     /* open library for access */
-    vpuapi_hdl = dlopen("libvpu.so", RTLD_LAZY | RTLD_GLOBAL);
+    vpuapi_hdl = dlopen("librockchip_vpu.so", RTLD_LAZY | RTLD_GLOBAL);
     if (NULL == vpuapi_hdl) {
-        printf("failed to open libvpu.so\n");
+        printf("failed to open librockchip_vpu.so\n");
         ret = -1;
         goto DEMO_OUT;
     }
