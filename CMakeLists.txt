@@ -193,7 +193,7 @@ endif(GCC)
 # Create git version information
 # ----------------------------------------------------------------------------
 set(VERSION_CNT         0)
-set(VERSION_MAX_CNT     9)
+set(VERSION_MAX_CNT     4)
 set(VERSION_INFO        "\"unknown mpp version for missing VCS info\"")
 foreach (CNT RANGE ${VERSION_MAX_CNT})
     set(VERSION_HISTORY_${CNT} "NULL")

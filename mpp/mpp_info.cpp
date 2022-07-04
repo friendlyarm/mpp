@@ -37,16 +37,23 @@ static const char *mpp_history[]  = {
     MPP_VER_HIST_2,
     MPP_VER_HIST_3,
     MPP_VER_HIST_4,
+
+#if MPP_VER_HIST_CNT > 5
     MPP_VER_HIST_5,
     MPP_VER_HIST_6,
     MPP_VER_HIST_7,
     MPP_VER_HIST_8,
     MPP_VER_HIST_9,
+#endif
 };
 
 void show_mpp_version(void)
 {
     RK_U32 show_history = 0;
+    static bool __logged;
+
+    if (__logged)
+        return;
 
     mpp_env_get_u32("mpp_show_history", &show_history, 0);
 
@@ -58,6 +65,8 @@ void show_mpp_version(void)
             mpp_log("%s\n", mpp_history[i]);
     } else
         mpp_log("mpp version: %s\n", mpp_version);
+
+    __logged = true;
 }
 
 const char *get_mpp_version(void)
