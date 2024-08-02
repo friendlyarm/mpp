@@ -1,3 +1,16 @@
+mpp (20240802-1) UNRELEASED; urgency=medium
+
+  [ FriendlyELEC ]
+  * ebb78d9e [allocator]: fixes crash on unsupport dma heap
+
+  [ rockchip ]
+  * 86cf93a0 fix[265e]:Fix the st refernce frame err in tsvc
+  * 74758e7e docs[readme]: Add more repo info
+  * 7bbbce41 fix[av1d]: when MetaData found then it is new frame
+  * d1b73032 fix[m2vd]: Fix seq_head check error
+
+ -- FriendlyELEC <support@friendlyarm.com>  Fri, 02 Aug 2024 18:06:35 +0800
+
 mpp (1.5.0-1) stable; urgency=critical
 
   * [mpp_enc_impl]: Cleanup hal_task on empty eos task

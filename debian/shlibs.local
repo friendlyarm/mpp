@@ -1,0 +1,4 @@
+libc 6 libc6
+libdl 2 libc6
+libpthread 0 libc6
+libm 6 libc6

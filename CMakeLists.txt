@@ -195,6 +195,7 @@ endif(GCC)
 set(VERSION_CNT         0)
 set(VERSION_MAX_CNT     4)
 set(VERSION_INFO        "\"unknown mpp version for missing VCS info\"")
+set(VERSION_HEAD        --skip=5 HEAD)
 foreach (CNT RANGE ${VERSION_MAX_CNT})
     set(VERSION_HISTORY_${CNT} "NULL")
 endforeach(CNT)
@@ -205,7 +206,7 @@ if(EXISTS "${PROJECT_SOURCE_DIR}/.git")
         # get current version info
         set(GIT_LOG_FORMAT "%h author: %<|(30)%an %cd %s")
 
-        execute_process(COMMAND ${GIT_EXECUTABLE} log -1 --oneline --date=short --pretty=format:${GIT_LOG_FORMAT}
+        execute_process(COMMAND ${GIT_EXECUTABLE} log ${VERSION_HEAD} -1 --oneline --date=short --pretty=format:${GIT_LOG_FORMAT}
             WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
             OUTPUT_VARIABLE EXEC_OUT
             ERROR_VARIABLE EXEC_ERROR
@@ -224,13 +225,13 @@ if(EXISTS "${PROJECT_SOURCE_DIR}/.git")
             message(STATUS "${EXEC_ERROR}")
         endif()
 
-        set(GIT_LOG_FORMAT "%h author: %<|(30)%an %cd %s %d")
+        set(GIT_LOG_FORMAT "%h author: %<|(30)%an %cd %s")
 
         # get history version information
         # setup logs
         message(STATUS "git version history:")
         foreach (CNT RANGE ${VERSION_MAX_CNT})
-            execute_process(COMMAND ${GIT_EXECUTABLE} log HEAD~${CNT} -1 --oneline --date=short --pretty=format:${GIT_LOG_FORMAT}
+            execute_process(COMMAND ${GIT_EXECUTABLE} log ${VERSION_HEAD}~${CNT} -1 --oneline --date=short --pretty=format:${GIT_LOG_FORMAT}
                 WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
                 OUTPUT_VARIABLE EXEC_OUT
                 ERROR_VARIABLE EXEC_ERROR
