@@ -81,6 +81,8 @@ RK_U32 MppRuntimeService::get_allocator_valid(MppBufferType type)
 
 MppRuntimeService::MppRuntimeService()
 {
+    static RK_U32 mpp_dma_heap = 1;
+
     mpp_env_get_u32("mpp_rt_debug", &mpp_rt_debug, 0);
 
     allocator_valid[MPP_BUFFER_TYPE_NORMAL] = 1;
@@ -88,7 +90,11 @@ MppRuntimeService::MppRuntimeService()
     allocator_valid[MPP_BUFFER_TYPE_DRM] =
         !access("/dev/dri/renderD128", F_OK | R_OK | W_OK) ||
         !access("/dev/dri/card0", F_OK | R_OK | W_OK);
-    allocator_valid[MPP_BUFFER_TYPE_DMA_HEAP] = !access("/dev/dma_heap", F_OK | R_OK);
+    allocator_valid[MPP_BUFFER_TYPE_DMA_HEAP] = !access("/dev/dma_heap/system-uncached", F_OK | R_OK);
+
+    mpp_env_get_u32("mpp_dma_heap", &mpp_dma_heap, 1);
+    if (!mpp_dma_heap)
+        allocator_valid[MPP_BUFFER_TYPE_DMA_HEAP] = false;
 
     if (!allocator_valid[MPP_BUFFER_TYPE_ION] &&
         !allocator_valid[MPP_BUFFER_TYPE_DRM] &&
